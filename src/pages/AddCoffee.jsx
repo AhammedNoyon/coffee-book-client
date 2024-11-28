@@ -152,7 +152,9 @@ const AddCoffee = () => {
               />
             </div>
             <div>
-              <button className="btn btn-neutral w-full">Add Coffee</button>
+              <button className="btn btn-neutral w-full mt-5">
+                Add Coffee
+              </button>
             </div>
           </form>
         </div>
