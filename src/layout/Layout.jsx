@@ -4,8 +4,8 @@ import Navbar from "../components/Navbar";
 const Layout = () => {
   return (
     <>
-      <header>
-        <nav className="bg-navbar-bg bg-no-repeat object-cover">
+      <header className="">
+        <nav className="bg-navbar-bg bg-no-repeat ">
           <Navbar></Navbar>
         </nav>
       </header>

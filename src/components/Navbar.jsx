@@ -2,7 +2,7 @@ import navTea from "../assets/images/more/logo1.png";
 const Navbar = () => {
   return (
     <div>
-      <div className="navbar text-white">
+      <div className="navbar  text-white">
         {/* navbar start */}
         <div className="navbar-start"></div>
         {/* navbar center */}

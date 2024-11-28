@@ -1,8 +1,20 @@
+import About from "../components/About";
+import Banner from "../components/Banner";
+
 const Home = () => {
   return (
-    <div>
-      <h3>Home</h3>
-    </div>
+    <>
+      <div>
+        {/* Banner  */}
+        <Banner></Banner>
+      </div>
+      <div className="bg-aboutBg">
+        {/* about */}
+        <About></About>
+      </div>
+      <div>{/* product */}</div>
+      <div>{/* instagram */}</div>
+    </>
   );
 };
 
