@@ -2,7 +2,7 @@ const Banner = () => {
   return (
     <div className="hero bg-bannerBg bg-no-repeat object-cover">
       <div className="bg-opacity-60"></div>
-      <div className="hero-content mt-[188px] lg:mt-[288px] mb-[188px] lg:mb-[288px] text-neutral-content text-center">
+      <div className="hero-content mt-[188px]  mb-[188px] lg:mb-[288px] text-neutral-content text-center">
         <div className="max-w-2xl lg:ml-56 ">
           <h1 className="mb-5 text-5xl font-bold font-rancho">
             Would you like a Cup of Delicious Coffee?

@@ -1,5 +1,7 @@
 import About from "../components/About";
+import AllCoffee from "../components/AllCoffee";
 import Banner from "../components/Banner";
+import InstaCoffee from "../components/InstaCoffee";
 
 const Home = () => {
   return (
@@ -12,8 +14,15 @@ const Home = () => {
         {/* about */}
         <About></About>
       </div>
-      <div>{/* product */}</div>
-      <div>{/* instagram */}</div>
+      <div className="my-28">
+        {/* All coffee */}
+        <AllCoffee></AllCoffee>
+      </div>
+      <div>
+        {/* instagram  coffee*/}
+
+        <InstaCoffee></InstaCoffee>
+      </div>
     </>
   );
 };
