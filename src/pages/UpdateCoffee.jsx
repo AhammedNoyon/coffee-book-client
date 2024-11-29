@@ -1,9 +1,12 @@
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddCoffee = () => {
-  const handleAddCoffee = (event) => {
+const UpdateCoffee = () => {
+  const loadedCoffee = useLoaderData();
+  const { _id, name, supplier, category, chef, taste, details, photo } =
+    loadedCoffee;
+  const handleUpdateCoffee = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -14,26 +17,32 @@ const AddCoffee = () => {
     const details = form.details.value;
     const photo = form.photo.value;
 
-    const coffees = { name, supplier, category, chef, taste, details, photo };
-    console.log(coffees);
-    fetch("http://localhost:5000/coffees", {
-      method: "POST",
+    const coffeeUpdate = {
+      name,
+      supplier,
+      category,
+      chef,
+      taste,
+      details,
+      photo,
+    };
+    // console.log(coffeeUpdate);
+    fetch(`http://localhost:5000/coffees/${_id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(coffees),
+      body: JSON.stringify(coffeeUpdate),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.insertedId) {
+        if (data.modifiedCount > 0) {
           Swal.fire({
-            title: "Success!",
-            text: "Coffee Added Successfully",
+            title: "Update!",
+            text: "Your coffee has been Updated.",
             icon: "success",
-            confirmButtonText: "Okay",
           });
-          form.reset();
         }
       });
   };
@@ -52,7 +61,7 @@ const AddCoffee = () => {
         <div className="flex flex-col justify-center items-center">
           <div className="text-center">
             <h3 className="text-4xl font-bold font-rancho mb-4">
-              Add New Coffee
+              Update Existing Coffee Details
             </h3>
             <h5 className="font-raleway w-full md:w-3/6 mx-auto">
               It is a long established fact that a reader will be distraceted by
@@ -64,13 +73,14 @@ const AddCoffee = () => {
         </div>
 
         <div className="card shrink-0 flex flex-col justify-center">
-          <form onSubmit={handleAddCoffee} className="card-body">
+          <form onSubmit={handleUpdateCoffee} className="card-body">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
                 <input
+                  defaultValue={name}
                   name="name"
                   type="text"
                   placeholder="Enter coffee name"
@@ -83,6 +93,7 @@ const AddCoffee = () => {
                   <span className="label-text">Supplier</span>
                 </label>
                 <input
+                  defaultValue={supplier}
                   name="supplier"
                   type="text"
                   placeholder="Enter coffee supplier"
@@ -95,6 +106,7 @@ const AddCoffee = () => {
                   <span className="label-text">Category</span>
                 </label>
                 <input
+                  defaultValue={category}
                   name="category"
                   type="text"
                   placeholder="Enter coffee Category"
@@ -107,6 +119,7 @@ const AddCoffee = () => {
                   <span className="label-text">Chef</span>
                 </label>
                 <input
+                  defaultValue={chef}
                   name="chef"
                   type="text"
                   placeholder="Enter coffee chef"
@@ -119,6 +132,7 @@ const AddCoffee = () => {
                   <span className="label-text">Taste</span>
                 </label>
                 <input
+                  defaultValue={taste}
                   name="taste"
                   type="text"
                   placeholder="Enter coffee taste"
@@ -131,6 +145,7 @@ const AddCoffee = () => {
                   <span className="label-text">Details</span>
                 </label>
                 <input
+                  defaultValue={details}
                   name="details"
                   type="text"
                   placeholder="Enter coffee details"
@@ -144,6 +159,7 @@ const AddCoffee = () => {
                 <span className="label-text">Photo URL</span>
               </label>
               <input
+                defaultValue={photo}
                 name="photo"
                 type="text"
                 placeholder="Enter your photo url"
@@ -153,7 +169,7 @@ const AddCoffee = () => {
             </div>
             <div>
               <button className="btn btn-neutral w-full mt-5">
-                Add Coffee
+                Update Coffee Details
               </button>
             </div>
           </form>
@@ -163,4 +179,4 @@ const AddCoffee = () => {
   );
 };
 
-export default AddCoffee;
+export default UpdateCoffee;
