@@ -1,14 +1,53 @@
+import { useContext } from "react";
 import { CiLogin } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { loginUser } = useContext(AuthContext);
+  // console.log(loginUser);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    const loginUser = { email, password };
-    console.log(loginUser);
+    const loginUserInfo = { email, password };
+    console.log(loginUserInfo);
+    //login to fb
+    loginUser(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("login successfully", user);
+        //update to db
+        const lastSignInTime = user?.metadata?.lastSignInTime;
+        const updatedInfo = { email, lastSignInTime };
+        fetch("http://localhost:5000/users", {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updatedInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Updated data", data);
+            if (data.matchedCount) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
   return (
     <div className="card bg-base-100 w-full max-w-2xl shrink-0 mx-auto">
@@ -24,7 +63,7 @@ const Login = () => {
             <span className="label-text">Email</span>
           </label>
           <input
-            name="name"
+            name="email"
             type="email"
             placeholder="Enter your email"
             className="input input-bordered"
