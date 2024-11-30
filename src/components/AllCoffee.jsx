@@ -29,7 +29,12 @@ const AllCoffee = () => {
       </div>
       <div className="text-center grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
         {coffees.map((coffee) => (
-          <SingleCoffee key={coffee._id} coffee={coffee}></SingleCoffee>
+          <SingleCoffee
+            key={coffee._id}
+            coffees={coffees}
+            setCoffees={setCoffees}
+            coffee={coffee}
+          ></SingleCoffee>
         ))}
       </div>
     </div>

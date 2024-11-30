@@ -1,12 +1,12 @@
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SingleCoffee = (props = {}) => {
-  const { coffee } = props || {};
+  const { coffee, coffees, setCoffees } = props || {};
   console.log(coffee);
-  const { _id, name, supplier, category, chef, taste, details, photo } = coffee;
+  const { _id, name, supplier, taste, photo } = coffee;
 
   const handleDeleteCoffee = (_id) => {
     console.log("delete coffee id", _id);
@@ -32,6 +32,10 @@ const SingleCoffee = (props = {}) => {
                 text: "Your coffee has been deleted.",
                 icon: "success",
               });
+              const remainingCoffee = coffees.filter(
+                (singleCoffee) => singleCoffee?._id !== _id
+              );
+              setCoffees(remainingCoffee);
             }
           });
       }
